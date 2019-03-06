@@ -25,23 +25,43 @@ if (typeof(SiebelAppFacade.NewFormAppletPR) === "undefined") {
 	function validateAmount() {
 
                
-                var controls = this.GetPM().Get( "GetControls" );
-                var cntrl = controls[ "Amount" ];   
-                var amountcntrl  = cntrl.GetInputName();
-                var amount = $('input[name="'+amountcntrl+'"]').val();
+               var controls = this.GetPM().Get( "GetControls" );
+                var cntrl = controls[ "Contact" ];  
+				console.log(cntrl);
+                var contactcntrl  = cntrl.GetInputName();
+				var contact = $('input[name="'+contactcntrl+'"]').val();
+				if(contact == ""){
+					console.log("No Value Entered");
+					debugger;
+					}else {               
                 
-                if(amount == "") 
-                    return true;
-                alert("going to validate");                
-                if( amount < 10) {
-                    alert("Please enter a valid amount");
-                    return false;
-                } 
-                else {
-                    alert("This is a valid amount");
-                    return true;
-                }
-            }
+                //calling Ajax Function here
+				    $.ajax({
+					  
+					  url: "URL",
+					  dataType: "json",
+						type: 'GET',
+						cache: false,
+					  success: function(data){//Getting Success Data here
+						console.log(data.Name);
+					var emailcntrl = controls[ "Email" ];
+					var emailcontrol  = emailcntrl.GetInputName();
+					var firstnamecntrl = controls[ "Firstname" ];
+					var firstnamecontrol  = firstnamecntrl.GetInputName();
+					$('input[name="'+emailcontrol+'"]').val(data.Email);
+						var name = (data.Name).split(" ");
+					$('input[name="'+firstnamecontrol+'"]').val(name[0]);
+					var lastnamecntrl = controls[ "Lastname" ];
+					var lastnamecontrol  = lastnamecntrl.GetInputName();
+					$('input[name="'+lastnamecontrol+'"]').val(name[1]);
+					
+						  
+					  },
+                        error: function(xhr, status, err) {
+                            }
+					});
+				}
+			    }
 
     NewFormAppletPR.prototype.ShowUI = function () {
      // ShowUI is called when the object is initially laid out.
