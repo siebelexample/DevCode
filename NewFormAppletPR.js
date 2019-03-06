@@ -30,16 +30,16 @@ if (typeof(SiebelAppFacade.NewFormAppletPR) === "undefined") {
                 var amountcntrl  = cntrl.GetInputName(); //Getting the ID name for the Amount Field
                 var amount = $('input[name="'+amountcntrl+'"]').val();// Getting value inside that field
                 
-                if(amount == "") 
-                    return true;
-                alert("going to validate");                
-                if( amount < 10) {
-                    alert("Please enter a valid amount");
-                    return false;
-                } 
-                else {
-                    alert("This is a valid amount");
-                    return true;
+               if(contact == ""){
+					console.log("No Value Entered");
+					debugger;
+					}else {
+						var service = SiebelApp.S_App.GetService("TEST_Shashank");
+						var Inputs = SiebelApp.S_App.NewPropertySet();
+						var Inputs1 = SiebelApp.S_App.NewPropertySet();
+						Inputs.SetProperty("Shipping Company", contact);
+						var outPS = service.InvokeMethod("Test", Inputs,Inputs1);//.GetChild(0);
+						
                 }
             }
 
