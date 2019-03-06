@@ -25,10 +25,10 @@ if (typeof(SiebelAppFacade.NewFormAppletPR) === "undefined") {
 	function validateAmount() {
 
                
-                var controls = this.GetPM().Get( "GetControls" );
-                var cntrl = controls[ "Amount" ];   
-                var amountcntrl  = cntrl.GetInputName();
-                var amount = $('input[name="'+amountcntrl+'"]').val();
+                var controls = this.GetPM().Get( "GetControls" );//Getting Control Objects from here
+                var cntrl = controls[ "Amount" ];   //Selecting Amount from the array received which will have the property for Amount field
+                var amountcntrl  = cntrl.GetInputName(); //Getting the ID name for the Amount Field
+                var amount = $('input[name="'+amountcntrl+'"]').val();// Getting value inside that field
                 
                 if(amount == "") 
                     return true;
